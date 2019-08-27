@@ -297,7 +297,7 @@ article blockquote cite:before{
 
 .navbar-custom .navbar-brand {
     font-weight: 800;
-    color: white;
+    /*color: white;*/
     height: 56px;
     line-height: 25px;
 
@@ -329,7 +329,7 @@ article blockquote cite:before{
         font-size: 20px;
     }
     .navbar-custom .navbar-brand {
-        color: white;
+        /*color: white;*/
         padding: 20px;
         line-height: 17px;
     }
@@ -339,7 +339,7 @@ article blockquote cite:before{
     }
 
     .navbar-custom .nav li a {
-        color: white;
+        /*color: white;*/
         padding: 20px;
     }
 
@@ -395,7 +395,7 @@ article blockquote cite:before{
 .intro-header .site-heading,
 .intro-header .page-heading,
 .intro-header .post-heading{
-    color: #fff;
+    /*color: #fff;*/
 }
 
 .intro-header .site-heading h1,
@@ -437,7 +437,7 @@ article blockquote cite:before{
 .intro-header .post-heading .meta {
     font-weight: 300;
     font-size: 14px;
-    color: #eee;
+    /*color: #eee;*/
 }
 
 .intro-header .post-heading .meta span {
@@ -737,10 +737,10 @@ img::-moz-selection {
 .tags a,
 .tags .tag {
     display: inline-block;
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(142, 142, 142, 0.8);
     border-radius: 4px;
     padding: 0 10px;
-    color: #ffffff;
+    /*color: #ffffff;*/
     line-height: 24px;
     font-size: 12px;
     text-decoration: none;
@@ -752,8 +752,19 @@ img::-moz-selection {
 .tags .tag:hover,
 .tags a:active,
 .tags .tag:active {
-    color: white;
-    border-color: white;
+    color: #0085a1;
+    border-color: #0085a1;
+    background-color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+}
+
+
+#tag_cloud a:hover,
+#tag_cloud .tag:hover,
+#tag_cloud a:active,
+#tag_cloud .tag:active {
+    color: #fff;
+    border-color: #fff;
     background-color: rgba(255, 255, 255, 0.4);
     text-decoration: none;
 }
