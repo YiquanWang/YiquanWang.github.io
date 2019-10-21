@@ -6,16 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://yiquanwang.github.io">
-  <title>Archives: 2019/8 | Echo的小镇</title>
+  <title>OpenVPN在Linux环境下安装客户端 | Echo的小镇</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="开发者,程序猿,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,c#,java,sql">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Echo的小镇">
-<meta property="og:url" content="https://yiquanwang.github.io/archives/2019/08/index.html">
+  <meta name="description" content="现在项目需要将服务器上的gitlab代码同步到本地做备份使用，由于服务器不在内网环境中且不允许设置公网访问，所以需要在本地GitLab服务器上安装VPN来访问服务器。">
+<meta name="keywords" content="OpenVPN,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenVPN在Linux环境下安装客户端">
+<meta property="og:url" content="https://yiquanwang.github.io/2019/10/21/OpenVPN在Linux环境下安装客户端/index.html">
 <meta property="og:site_name" content="Echo的小镇">
+<meta property="og:description" content="现在项目需要将服务器上的gitlab代码同步到本地做备份使用，由于服务器不在内网环境中且不允许设置公网访问，所以需要在本地GitLab服务器上安装VPN来访问服务器。">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-10-21T07:34:59.940Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Echo的小镇">
+<meta name="twitter:title" content="OpenVPN在Linux环境下安装客户端">
+<meta name="twitter:description" content="现在项目需要将服务器上的gitlab代码同步到本地做备份使用，由于服务器不在内网环境中且不允许设置公网访问，所以需要在本地GitLab服务器上安装VPN来访问服务器。">
   
     <link rel="alternative" href="/atom.xml" title="Echo的小镇" type="application/atom+xml">
   
@@ -155,98 +159,214 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-OpenVPN在Linux环境下安装客户端" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/28/MarkdownPad2-破解方案/" class="archive-article-date">
-  	<time datetime="2019-08-28T01:47:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-28</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/28/MarkdownPad2-破解方案/">MarkdownPad2 破解方案</a>
+    <h1 class="article-title" itemprop="name">
+      OpenVPN在Linux环境下安装客户端
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/10/21/OpenVPN在Linux环境下安装客户端/" class="archive-article-date">
+  	<time datetime="2019-10-21T07:13:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>现在项目需要将服务器上的gitlab代码同步到本地做备份使用，由于服务器不在内网环境中且不允许设置公网访问，所以需要在本地GitLab服务器上安装VPN来访问服务器。</p>
+<a id="more"></a>
+
+<p>VPN客户端需要注意一点，必须和服务器时间保持一致，不然无法连接到服务器的。所以先安装时间同步工具：ntpdate</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ntpdate</span><br><span class="line">ntpdate -u ntp<span class="selector-class">.api</span><span class="selector-class">.bz</span></span><br></pre></td></tr></table></figure>
+
+<p>安装lzo组件</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget http:<span class="string">//www.oberhumer.com/opensource/lzo/download/lzo-2.10.tar.gz</span></span><br><span class="line">tar zxvf lzo-2.10.tar.gz -C <span class="string">/usr/src/</span></span><br><span class="line"><span class="keyword">cd</span> <span class="string">/usr/src/lzo-2.10/</span></span><br><span class="line"><span class="string">./configure</span> <span class="params">--enable-shared</span></span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<p>安装openvpn</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="string">/root</span></span><br><span class="line">wget http:<span class="string">//swupdate.openvpn.org/community/releases/openvpn-2.4.7.tar.gz</span></span><br><span class="line">tar zxvf openvpn-2.4.7.tar.gz -C <span class="string">/usr/src/</span></span><br><span class="line"><span class="keyword">cd</span> <span class="string">/usr/src/openvpn-2.4.7/</span></span><br><span class="line"><span class="string">./configure</span> <span class="params">--prefix=/usr/local/openvpn</span></span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<p>创建配置文件存放目录</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir <span class="regexp">/usr/</span>local<span class="regexp">/openvpn/</span>etc</span><br></pre></td></tr></table></figure>
+
+<p>将.ovpn文件上传至此目录</p>
+<p>启动客户端</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>local<span class="regexp">/openvpn/</span>sbin<span class="regexp">/openvpn --config /u</span>sr<span class="regexp">/local/</span>openvpn<span class="regexp">/etc/</span>client.ovpn</span><br></pre></td></tr></table></figure>
+
+<p>当出现<code>Initialization Sequence Completed</code>时，表示已经连接成功</p>
+<p>此时可以使用ping命令检测是否正常连接</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ping</span> <span class="selector-tag">-c</span> 1 192<span class="selector-class">.168</span><span class="selector-class">.xxx</span><span class="selector-class">.xxx</span></span><br></pre></td></tr></table></figure>
+
+<p>如果想要程序在后台运行，则启动客户端命令修改为：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># <span class="regexp">/usr/</span>local<span class="regexp">/openvpn/</span>sbin<span class="regexp">/openvpn  --daemon --config /u</span>sr<span class="regexp">/local/</span>openvpn<span class="regexp">/etc/</span>client.ovpn</span><br></pre></td></tr></table></figure>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">工具</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">OpenVPN</a>
         		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/09/hello-world/" class="archive-article-date">
-  	<time datetime="2019-08-08T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/09/hello-world/">冬夜读书示子聿</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
+      		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://yiquanwang.github.io/2019/10/21/OpenVPN在Linux环境下安装客户端/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/08/28/MarkdownPad2-破解方案/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MarkdownPad2 破解方案</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  <div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="OpenVPN在Linux环境下安装客户端" data-title="OpenVPN在Linux环境下安装客户端" data-url="https://yiquanwang.github.io/2019/10/21/OpenVPN在Linux环境下安装客户端/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -269,8 +389,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
