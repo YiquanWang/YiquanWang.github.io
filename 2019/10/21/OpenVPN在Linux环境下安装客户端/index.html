@@ -9,14 +9,14 @@
   <title>OpenVPN在Linux环境下安装客户端 | Echo的小镇</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="现在项目需要将服务器上的gitlab代码同步到本地做备份使用，由于服务器不在内网环境中且不允许设置公网访问，所以需要在本地GitLab服务器上安装VPN来访问服务器。">
-<meta name="keywords" content="OpenVPN,Linux">
+<meta name="keywords" content="OpenVPN,Linux,工具">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenVPN在Linux环境下安装客户端">
 <meta property="og:url" content="https://yiquanwang.github.io/2019/10/21/OpenVPN在Linux环境下安装客户端/index.html">
 <meta property="og:site_name" content="Echo的小镇">
 <meta property="og:description" content="现在项目需要将服务器上的gitlab代码同步到本地做备份使用，由于服务器不在内网环境中且不允许设置公网访问，所以需要在本地GitLab服务器上安装VPN来访问服务器。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-21T07:34:59.940Z">
+<meta property="og:updated_time" content="2019-10-21T07:52:32.287Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenVPN在Linux环境下安装客户端">
 <meta name="twitter:description" content="现在项目需要将服务器上的gitlab代码同步到本地做备份使用，由于服务器不在内网环境中且不允许设置公网访问，所以需要在本地GitLab服务器上安装VPN来访问服务器。">
@@ -191,6 +191,9 @@
 <p>安装openvpn</p>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="string">/root</span></span><br><span class="line">wget http:<span class="string">//swupdate.openvpn.org/community/releases/openvpn-2.4.7.tar.gz</span></span><br><span class="line">tar zxvf openvpn-2.4.7.tar.gz -C <span class="string">/usr/src/</span></span><br><span class="line"><span class="keyword">cd</span> <span class="string">/usr/src/openvpn-2.4.7/</span></span><br><span class="line"><span class="string">./configure</span> <span class="params">--prefix=/usr/local/openvpn</span></span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
 
+<p>在安装过程中，执行configure命令时有可能出现以下以下错误</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">configure: error: no acceptable C compiler found in $PATH</span><br><span class="line">解决方案：</span><br><span class="line">yum -y install gcc  </span><br><span class="line"></span><br><span class="line">configure: error: libpam required but missing</span><br><span class="line">解决方案：</span><br><span class="line">yum -y install pam-devel</span><br><span class="line"></span><br><span class="line">configure: error: openssl<span class="built_in"> check </span>failed</span><br><span class="line">解决方案：</span><br><span class="line">yum -y install openssl-devel</span><br></pre></td></tr></table></figure>
+
 <p>创建配置文件存放目录</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir <span class="regexp">/usr/</span>local<span class="regexp">/openvpn/</span>etc</span><br></pre></td></tr></table></figure>
 
@@ -204,6 +207,8 @@
 
 <p>如果想要程序在后台运行，则启动客户端命令修改为：</p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># <span class="regexp">/usr/</span>local<span class="regexp">/openvpn/</span>sbin<span class="regexp">/openvpn  --daemon --config /u</span>sr<span class="regexp">/local/</span>openvpn<span class="regexp">/etc/</span>client.ovpn</span><br></pre></td></tr></table></figure>
+
+
       
 
       
@@ -242,6 +247,10 @@
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">工具</a>
         		</li>
       		
 		</ul>
@@ -459,19 +468,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">工具</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">OpenVPN</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
             
             <div class="clearfix"></div>
